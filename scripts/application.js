@@ -3,6 +3,7 @@ var data = function(){
     this.lenghtScale = 25;
     this.percentScale = 10;
     this.value = 10;
+    this.numberInACircle = true;
     this.idElement = "myCanvas";
 }
 data.prototype.canvasDrow = function(){
@@ -13,7 +14,8 @@ data.prototype.canvasDrow = function(){
     if(!this.isPercent){
         var step = 1.5 / this.lenghtScale,
             beginScale = 0.75,
-            endScale;
+            endScale
+            numbersDraw = this.numberInACircle ? 230 : 270;
         for(var i = 1; i <= this.lenghtScale; i++){
             endScale = beginScale + step;
             endScale = endScale > 2 ? endScale - 2 : endScale;
@@ -21,6 +23,11 @@ data.prototype.canvasDrow = function(){
             ctx.lineWidth = 5;
             ctx.arc(500,375,250,beginScale*Math.PI,endScale*Math.PI);
             ctx.strokeStyle = this.value >= i ? '#666666' : '#'+((1<<24)*Math.random()|0).toString(16);
+            ctx.stroke();
+            ctx.beginPath();
+            ctx.lineWidth = 5;
+            ctx.arc(500,375,numbersDraw,(beginScale+(step/2-0.0005))*Math.PI,(beginScale+(step/2+0.0005))*Math.PI);
+            ctx.strokeStyle = '#666666';
             ctx.stroke();
             beginScale = endScale;
         }
