@@ -4,12 +4,12 @@ data.prototype.options = {
     lenghtScale : 10,
     percentScale : 10,
     value : 5.8,
-    numberInACircle : false,
+    numberInACircle : true,
     firstNumber: 0,
     idElement : "myCanvas",
     canvasSize : 500,
     scaleRadius : 800,
-    arrowColor: "#1e98e4"
+    arrowColor: "#628398"
 }
 data.prototype.canvasDrow = function(){
     var c=document.getElementById(this.options.idElement);
@@ -26,7 +26,7 @@ data.prototype.canvasDrow = function(){
             endScale = (beginScale + step) > 2 ? (beginScale + step) - 2 : beginScale + step;
         ctx.beginPath();
         ctx.lineWidth =  this.options.scaleRadius/80;
-        ctx.arc(this.options.canvasSize/2,this.options.canvasSize/2, this.options.scaleRadius/2,beginScale*Math.PI,endScale*Math.PI);
+        ctx.arc(this.options.canvasSize/2,this.options.canvasSize/2, this.options.scaleRadius/2,(i == this.options.firstNumber ? beginScale + step/2 : beginScale )*Math.PI,(i == this.options.lenghtScale ? endScale - step/2 : endScale )*Math.PI);
         ctx.strokeStyle = this.options.value >= i ? '#666666' : '#'+((1<<24)*Math.random()|0).toString(16);
         ctx.stroke();
         ctx.beginPath();
