@@ -8,7 +8,8 @@ data.prototype.options = {
     firstNumber: 0,
     idElement : "myCanvas",
     canvasSize : 500,
-    scaleRadius : 800
+    scaleRadius : 800,
+    arrowColor: "#1e98e4"
 }
 data.prototype.canvasDrow = function(){
     var c=document.getElementById(this.options.idElement);
@@ -72,8 +73,8 @@ data.prototype.canvasDrow = function(){
             ctx.rotate((-123 + (244 / 100 * this.options.value )) * (Math.PI/180));
         }
         ctx.lineWidth = 1;
-        ctx.strokeStyle = "#1e98e4";
-        ctx.fillStyle = "#1e98e4";
+        ctx.strokeStyle = this.options.arrowColor;
+        ctx.fillStyle = this.options.arrowColor;
         ctx.moveTo(-(this.options.scaleRadius /60), -(this.options.scaleRadius / 60));
         ctx.lineTo(0, -numbersDraw);
         ctx.lineTo(this.options.scaleRadius /60, this.options.scaleRadius / 60);
@@ -86,9 +87,9 @@ data.prototype.canvasDrow = function(){
         ctx.beginPath();
         ctx.lineWidth = 0;
         ctx.arc(this.options.canvasSize/2,this.options.canvasSize/2, this.options.scaleRadius/30,2*Math.PI,false);
-        ctx.fillStyle = '#1e98e4';
+        ctx.fillStyle = this.options.arrowColor;
         ctx.fill();
-        ctx.strokeStyle = '#1e98e4';
+        ctx.strokeStyle = this.options.arrowColor;
         ctx.stroke();
     }
 
