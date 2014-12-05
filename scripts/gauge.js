@@ -1,24 +1,26 @@
 var znCircleScaleClass = function ( ) { };
+
 // create Options for Scale
 znCircleScaleClass.prototype.options = {
-    //numberScaleStap in the development of
-    isPercent : false,
-    lenghtScale : 20,
-    percentScaleStap : 10,
-    numberScaleStap : 1,
-    value : 4,
-    numberInACircle : true,
-    firstNumber: 1,
-    idElement : "myCanvas",
-    canvasSize : 500,
-    scaleDiameter : 800,
-    arrowColor: "#628398",
-    fonts: "Arial"
+    isPercent : false, //is Percent scale?
+    firstNumber: 1, //first number for nonPercent scale
+    lenghtScale : 20, // last number for nonPercent scale
+    percentScaleStap : 10, // stap for percent scale
+    numberScaleStap : 1, // this option in the development of
+    value : 4, // value for scale
+    numberInACircle : true, // number in/out
+    idElement : "myCanvas", // name for parent Element *
+    idElementCanvas : "gauge", //canvas element (optionalaty)
+    canvasSize : 500, // canvas size
+    scaleDiameter : 800, // diameter Scale
+    arrowColor: "#628398", //color scale arrow
+    fonts: "Arial" // font :)
 };
 // Draw Scale
 znCircleScaleClass.prototype.canvasDrow = function(){
-    var c=document.getElementById(this.options.idElement);
-    var ctx=c.getContext("2d");
+    if(document.getElementById(this.options.idElementCanvas) == undefined){ this.getDomObj()}
+    var c = document.getElementById(this.options.idElementCanvas);
+    var ctx = c.getContext("2d");
     this.options.canvasSize = this.options.canvasSize < 250 ? 250 : this.options.canvasSize
     c.width = this.options.canvasSize + (this.options.canvasSize/5);
     c.height = this.options.canvasSize;
@@ -33,7 +35,7 @@ znCircleScaleClass.prototype.canvasDrow = function(){
         endScale;
 
     //Draw Arc and Scale
-    for( var i = 0; i <= lenghtScaleStap; i++){
+    for(var i = 0; i <= lenghtScaleStap; i++ ){
         endScale = i == lenghtScaleStap || i == 0 ? beginScale + stap/2 : beginScale + stap;
         ctx.beginPath();
         ctx.lineWidth =  this.options.scaleDiameter/80;
@@ -115,10 +117,11 @@ znCircleScaleClass.prototype.canvasDrow = function(){
     ctx.stroke();
 
 };
-/*znCircleScaleClass.prototype.getScaleStep = function(scaleLength){
-    var stepLenght =
-    return scaleLength
-}*/
-
-var znCircleScale = new znCircleScaleClass();
-znCircleScale.canvasDrow();
+znCircleScaleClass.prototype.getDomObj = function(){
+	var randomNumber = Math.floor(Math.random() * (0 - 10000 + 1)) + 0,
+		canvas = document.createElement("canvas"),
+		parentElement = document.getElementById(this.options.idElement);
+	parentElement.appendChild(canvas);
+	canvas.id = "gauge" + randomNumber;
+	this.options.idElementCanvas = "gauge" + randomNumber
+};
